@@ -1,0 +1,26 @@
+.themeToggle {
+  background: transparent;
+  border: 2px solid var(--border-color, #ddd);
+  border-radius: 8px;
+  padding: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  color: var(--text-primary, #333);
+}
+
+.themeToggle:hover {
+  background: var(--hover-bg, #f0f0f0);
+  border-color: var(--primary-color, #007bff);
+  transform: rotate(15deg);
+}
+
+.themeToggle:active {
+  transform: scale(0.95) rotate(15deg);
+}
+
+.themeToggle svg {
+  display: block;
+}
