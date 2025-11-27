@@ -1,12 +1,26 @@
 .appHeader {
+  background: var(--card-bg, white);
+  border-bottom: 2px solid var(--border-color, #ddd);
+  padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
-  padding: 1rem;
-  background: white;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
-.appHeader a {
+.appHeader h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.appHeader h1 a {
+  color: var(--text-primary, #333);
   text-decoration: none;
-  color: black;
+  transition: color 0.2s ease;
+}
+
+.appHeader h1 a:hover {
+  color: var(--primary-color, #007bff);
 }
