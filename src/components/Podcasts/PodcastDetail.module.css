@@ -6,21 +6,24 @@
 
 strong {
   font-size: 0.875rem;
+  color: var(--text-primary);
 }
 
 .header {
   display: flex;
   gap: 2rem;
-  background: white;
+  background: var(--card-bg);
   padding: 2rem;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   margin-bottom: 2rem;
+  border: 1px solid var(--border-color);
 }
+
 .backButton {
   background: none;
   border: none;
-  color: #333;
+  color: var(--text-primary);
   font-size: 1rem;
   cursor: pointer;
   margin-bottom: 1rem;
@@ -31,7 +34,7 @@ strong {
 }
 
 .backButton:hover {
-  color: #0070f3;
+  color: var(--primary-color);
 }
 
 .cover {
@@ -46,10 +49,11 @@ strong {
   font-weight: bold;
   margin-bottom: 0.5rem;
   margin-top: 0px;
+  color: var(--text-primary);
 }
 
 .description {
-  color: #444;
+  color: var(--text-secondary);
   margin-bottom: 1rem;
 }
 
@@ -61,15 +65,17 @@ strong {
 }
 
 .genreBadge {
-  background-color: #e5e7eb;
+  background-color: var(--bg-secondary);
   padding: 0.3rem 0.75rem;
   border-radius: 9999px;
   font-size: 0.85rem;
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
 }
 
 .metaInfo p {
   font-size: 0.875rem;
-  color: #555;
+  color: var(--text-secondary);
   margin: 0.25rem 0;
 }
 
@@ -86,17 +92,17 @@ strong {
 }
 
 .seasonDetails {
-  background: white;
+  background: var(--card-bg);
   padding: 2rem;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--border-color);
 }
 
 .seasonIntro {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  /* align-items: center; */
   gap: 1rem;
   margin-bottom: 2rem;
 }
@@ -110,10 +116,12 @@ strong {
 .dropdown {
   padding: 0.4rem 0.6rem;
   border-radius: 4px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--border-color);
   min-width: 140px;
   height: 40px;
   order: 2;
+  background: var(--card-bg);
+  color: var(--text-primary);
 }
 
 .seasonCover,
@@ -123,14 +131,12 @@ strong {
   display: flex;
   align-items: center;
   justify-content: center;
-
   border-radius: 6px;
   text-align: center;
-  /* padding: 0.5rem; */
 }
 
 .releaseInfo {
-  color: #777;
+  color: var(--text-secondary);
   font-size: 0.875rem;
   margin-top: 0.5rem;
 }
@@ -143,19 +149,20 @@ strong {
 
 .episodeCard {
   display: flex;
-  background: #f9fafb;
+  background: var(--bg-secondary);
   padding: 1rem;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--border-color);
   border-radius: 6px;
   transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
 
 .episodeCard:hover {
   transform: translateY(-4px);
-  background: #ffffff;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  border-color: #d1d5db;
+  background: var(--hover-bg);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-color: var(--primary-color);
 }
+
 .episodeInfo {
   margin-left: 10px;
 }
@@ -165,10 +172,11 @@ strong {
   font-size: 0.95rem;
   margin-bottom: 0.25rem;
   margin-top: 0px;
+  color: var(--text-primary);
 }
 
 .episodeDesc {
-  color: #555;
+  color: var(--text-secondary);
   font-size: 0.875rem;
 }
 
@@ -203,7 +211,6 @@ strong {
 
   .left {
     order: 1;
-    /* flex-direction: column; */
     width: 100%;
   }
   .dropdown {
