@@ -1,13 +1,15 @@
+
 import { Routes, Route } from "react-router-dom";
 import Header from "./components/UI/Header";
 import Home from "./pages/Home";
 import ShowDetail from "./pages/ShowDetail";
 import { PodcastProvider } from "./context/PodcastContext";
+import { ThemeProvider } from "./context/ThemeContext";
 
 /**
  * Root component of the Podcast Explorer app.
  *
- * - Wraps the application in the `PodcastProvider` context for global state.
+ * - Wraps the application in the `ThemeProvider` and `PodcastProvider` contexts for global state.
  * - Includes the `Header` component, displayed on all pages.
  * - Defines client-side routes using React Router:
  *    - "/" renders the `Home` page
@@ -17,7 +19,7 @@ import { PodcastProvider } from "./context/PodcastContext";
  */
 export default function App() {
   return (
-    <>
+    <ThemeProvider>
       <Header />
       <PodcastProvider>
         <Routes>
@@ -25,6 +27,6 @@ export default function App() {
           <Route path={`/show/:id`} element={<ShowDetail />} />
         </Routes>
       </PodcastProvider>
-    </>
+    </ThemeProvider>
   );
 }
