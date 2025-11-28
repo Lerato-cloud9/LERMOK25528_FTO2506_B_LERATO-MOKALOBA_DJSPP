@@ -153,3 +153,75 @@ export function AudioPlayerProvider({ children }) {
     const saved = localStorage.getItem(`progress-${episodeId}`);
     return saved ? JSON.parse(saved) : null;
   };
+
+ /**
+ * Clear saved playback progress for an episode
+ * @param {string} episodeId - Episode ID
+ */
+const clearProgress = (episodeId) => {
+  localStorage.removeItem(`progress-${episodeId}`);
+};
+
+/*  Audio event listeners  */
+useEffect(() => {
+  const audio = audioRef.current;
+
+  // Update currentTime state as audio plays
+  const handleTimeUpdate = () => setCurrentTime(audio.currentTime);
+
+  // Update duration state if audio metadata changes
+  const handleDurationChange = () => setDuration(audio.duration);
+
+  // Handle episode end
+  const handleEnded = () => {
+    setIsPlaying(false);
+    setCurrentTime(0);
+
+    // Mark episode as completed in localStorage
+    if (currentEpisode) {
+      localStorage.setItem(`completed-${currentEpisode.id}`, "true");
+    }
+  };
+
+  // Handle playback errors
+  const handleError = () => {
+    console.error("Audio playback error");
+    setIsPlaying(false);
+  };
+
+  // Add event listeners to audio element
+  audio.addEventListener("timeupdate", handleTimeUpdate);
+  audio.addEventListener("durationchange", handleDurationChange);
+  audio.addEventListener("ended", handleEnded);
+  audio.addEventListener("error", handleError);
+
+  // Cleanup listeners on unmount or episode change
+  return () => {
+    audio.removeEventListener("timeupdate", handleTimeUpdate);
+    audio.removeEventListener("durationchange", handleDurationChange);
+    audio.removeEventListener("ended", handleEnded);
+    audio.removeEventListener("error", handleError);
+  };
+}, [currentEpisode]);
+
+/* ---------------- Provide context to children ---------------- */
+const value = {
+  currentEpisode,
+  isPlaying,
+  currentTime,
+  duration,
+  playEpisode,
+  pause,
+  togglePlayPause,
+  seek,
+  skipForward,
+  skipBackward,
+  getSavedProgress,
+  clearProgress,
+};
+
+return (
+  <AudioPlayerContext.Provider value={value}>
+  {children}
+  </AudioPlayerContext.Provider>
+);
