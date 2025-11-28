@@ -99,3 +99,38 @@ export default function Favorites() {
       minute: "2-digit",
     });
   };
+
+   /**
+   * Handle play episode
+   */
+  const handlePlay = (favorite) => {
+    playEpisode({
+      id: favorite.id,
+      audioFile: favorite.audioFile,
+      title: favorite.episodeTitle,
+      showTitle: favorite.showTitle,
+      showImage: favorite.showImage,
+    });
+  };
+  
+  /**
+ * If the user has no favorites saved yet,
+ * show an empty state message instead of the list.
+ */
+  if (favorites.length === 0) {
+    return (
+      <main className={styles.main}>
+        <div className={styles.empty}>
+          <h1>❤️ Favourite Episodes</h1>
+          <p>Your saved episodes from all shows</p>
+          <div className={styles.emptyState}>
+            <p>No favorites yet!</p>
+            <p>
+              Start adding episodes to your favorites by clicking the heart icon
+              on any episode.
+            </p>
+          </div>
+        </div>
+      </main>
+    );
+  }
