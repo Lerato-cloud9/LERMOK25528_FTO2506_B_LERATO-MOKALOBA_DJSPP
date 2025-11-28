@@ -74,3 +74,42 @@ export function AudioPlayerProvider({ children }) {
     window.addEventListener("beforeunload", handleBeforeUnload);
     return () => window.removeEventListener("beforeunload", handleBeforeUnload);
   }, [isPlaying]);
+
+    /**
+   * Play an episode
+   * @param {Object} episode - Episode data with id, audioFile, title, showTitle, showImage
+   */
+  const playEpisode = (episode) => {
+    if (currentEpisode?.id === episode.id) {
+    // If the episode is already loaded, just play it
+      audioRef.current.play();
+      setIsPlaying(true);
+    } else {
+    // Load new episode audio source
+      audioRef.current.src = episode.audioFile;
+      audioRef.current.load();   // Ensure browser loads new file
+      audioRef.current.play();   // Start playback
+      setCurrentEpisode(episode);// Update current episode state
+      setIsPlaying(true);        // Set playing state
+    }
+  };
+
+  /**
+   * Pause playback
+   */
+  const pause = () => {
+    audioRef.current.pause();
+    setIsPlaying(false);
+  };
+
+  /**
+   * Toggle between play and pause
+   */
+  const togglePlayPause = () => {
+    if (isPlaying) {
+      pause();
+    } else if (currentEpisode) {
+      audioRef.current.play();  // If paused and episode loaded, play
+      setIsPlaying(true);       // Update state
+    }
+  };
