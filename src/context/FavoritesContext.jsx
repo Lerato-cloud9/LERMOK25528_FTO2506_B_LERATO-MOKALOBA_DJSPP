@@ -113,3 +113,43 @@ export function AudioPlayerProvider({ children }) {
       setIsPlaying(true);       // Update state
     }
   };
+
+    /**
+   * Seek to a specific time
+   * @param {number} time - Time in seconds
+   */
+  const seek = (time) => {
+    audioRef.current.currentTime = time; // Update audio element
+    setCurrentTime(time);                // Update state for UI
+
+  };
+
+  /**
+   * Skip forward by seconds
+   * @param {number} seconds - Seconds to skip (default 15)
+   */
+  const skipForward = (seconds = 15) => {
+    // Ensure we don't exceed the episode duration
+    const newTime = Math.min(audioRef.current.currentTime + seconds, duration);
+    seek(newTime); // Use seek to update audio and state
+  };
+
+  /**
+   * Skip backward by seconds
+   * @param {number} seconds - Seconds to skip back (default 15)
+   */
+  const skipBackward = (seconds = 15) => {
+    // Ensure we don't go below 0
+    const newTime = Math.max(audioRef.current.currentTime - seconds, 0);
+    seek(newTime); // Use seek to update audio and state
+  };
+
+  /**
+   * Get saved progress for an episode
+   * @param {string} episodeId - Episode ID
+   * @returns {Object|null} Progress object or null
+   */
+  const getSavedProgress = (episodeId) => {
+    const saved = localStorage.getItem(`progress-${episodeId}`);
+    return saved ? JSON.parse(saved) : null;
+  };
