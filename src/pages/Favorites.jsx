@@ -213,3 +213,53 @@ export default function Favorites() {
                 </span>
               </h2>
             </div>
+
+            <div className={styles.episodes}>
+           {/* Loop through all favorite episodes of a show */}
+              {episodes.map((fav) => (
+                <article key={fav.id} className={styles.episode}>
+                {/* Episode information */}
+                  <div className={styles.episodeContent}>
+                    <h3 className={styles.episodeTitle}>
+                      {fav.episodeTitle}
+                    </h3>
+                {/* Season and episode number */}
+                    <p className={styles.episodeMeta}>
+                      Season {fav.seasonNumber} • Episode {fav.episodeId}
+                    </p>
+                {/* Episode description */}
+                    <p className={styles.episodeDescription}>
+                      {fav.episodeDescription}
+                    </p>
+                {/* Date the episode was added to favorites */}
+                    <p className={styles.addedDate}>
+                      Added on {formatDate(fav.addedAt)}
+                    </p>
+                  </div>
+               {/* Episode action buttons */}
+                  <div className={styles.episodeActions}>
+                {/* Play the episode */}
+                    <button
+                      onClick={() => handlePlay(fav)}
+                      className={styles.playBtn}
+                    >
+                      ▶ Play
+                    </button>
+                {/* Remove the episode from favorites */}
+                    <button
+                      onClick={() => removeFavorite(fav.id)}
+                      className={styles.removeBtn}
+                      aria-label="Remove from favorites"
+                    >
+                      ❤️
+                    </button>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+        ))}
+      </div>
+    </main>
+  );
+}
