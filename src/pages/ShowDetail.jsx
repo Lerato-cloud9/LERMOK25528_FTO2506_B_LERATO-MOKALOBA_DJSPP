@@ -29,7 +29,8 @@ export default function ShowDetail() {
 
   useEffect(() => {
     fetchSinglePodcast(id, setPodcast, setError, setLoading);
-  }, []);
+  }, [id]);
+
   return (
     <>
       {loading && <Loading message="Loading podcast..." />}
