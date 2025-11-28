@@ -24,3 +24,70 @@
 .appHeader h1 a:hover {
   color: var(--primary-color, #007bff);
 }
+
+/* Navigation links */
+.nav {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.navLink {
+  text-decoration: none;
+  color: var(--text-secondary, #888);
+  font-weight: 500;
+  font-size: 0.95rem;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.navLink:hover {
+  color: var(--text-primary);
+  background: var(--hover-bg, rgba(255, 255, 255, 0.1));
+}
+
+.navLink.active {
+  color: var(--text-primary);
+  background: var(--active-bg, rgba(255, 255, 255, 0.15));
+  font-weight: 600;
+}
+
+.favIcon {
+  font-size: 1rem;
+}
+
+.favCount {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .nav {
+    gap: 0.5rem;
+  }
+
+  .navLink {
+    padding: 0.4rem 0.75rem;
+    font-size: 0.85rem;
+  }
+
+  .favCount {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .navLink {
+    padding: 0.3rem 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  .favIcon {
+    font-size: 0.9rem;
+  }
+}
