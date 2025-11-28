@@ -1,0 +1,227 @@
+/* Fixed audio player at bottom of screen */
+.player {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--bg-secondary, #1a1a1a);
+  border-top: 1px solid var(--border-color, #333);
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  z-index: 1000;
+  box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Episode information section */
+.playerInfo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  min-width: 250px;
+  max-width: 300px;
+}
+
+.playerImg {
+  width: 56px;
+  height: 56px;
+  border-radius: 4px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.episodeInfo {
+  overflow: hidden;
+}
+
+.playerTitle {
+  font-weight: 600;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--text-primary, #fff);
+}
+
+.playerShow {
+  color: var(--text-secondary, #888);
+  font-size: 0.8rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Playback controls */
+.playerControls {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  max-width: 800px;
+}
+
+.playPauseBtn {
+  background: var(--primary-color, #1db954);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  transition: transform 0.1s, background 0.2s;
+}
+
+.playPauseBtn:hover {
+  transform: scale(1.05);
+  background: var(--primary-hover, #1ed760);
+}
+
+.playPauseBtn:active {
+  transform: scale(0.95);
+}
+
+.skipBtn {
+  background: none;
+  border: none;
+  color: var(--text-secondary, #888);
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  transition: color 0.2s;
+}
+
+.skipBtn:hover {
+  color: var(--text-primary, #fff);
+}
+
+.queueBtn {
+  background: none;
+  border: none;
+  color: var(--text-secondary, #888);
+  font-size: 1.3rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  transition: color 0.2s;
+  margin-left: auto;
+}
+
+.queueBtn:hover {
+  color: var(--text-primary, #fff);
+}
+
+/* Progress bar container */
+.progressContainer {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.timeText {
+  font-size: 0.75rem;
+  color: var(--text-secondary, #888);
+  min-width: 40px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.progressBar {
+  flex: 1;
+  height: 6px;
+  appearance: none;
+  background: var(--bg-tertiary, #333);
+  border-radius: 3px;
+  outline: none;
+  cursor: pointer;
+}
+
+.progressBar::-webkit-slider-thumb {
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  background: var(--primary-color, #1db954);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+
+.progressBar::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+.progressBar::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  background: var(--primary-color, #1db954);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+
+.progressBar::-moz-range-thumb:hover {
+  transform: scale(1.2);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .player {
+    padding: 0.75rem 1rem;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .playerInfo {
+    min-width: 200px;
+    max-width: 250px;
+  }
+
+  .playerImg {
+    width: 48px;
+    height: 48px;
+  }
+
+  .playerControls {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .skipBtn {
+    font-size: 1rem;
+    padding: 0.25rem;
+  }
+
+  .queueBtn {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .playerInfo {
+    min-width: 150px;
+  }
+
+  .playerTitle {
+    font-size: 0.8rem;
+  }
+
+  .playerShow {
+    font-size: 0.7rem;
+  }
+
+  .playPauseBtn {
+    width: 36px;
+    height: 36px;
+    font-size: 1rem;
+  }
+
+  .timeText {
+    font-size: 0.7rem;
+    min-width: 35px;
+  }
+}
