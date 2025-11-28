@@ -36,3 +36,84 @@ export default function RecommendedCarousel() {
       });
     }
   };
+
+  
+  /**
+   * Navigate to the show detail page when a show card is clicked
+   * @param {Object} show - Show data
+   */
+  const handleShowClick = (show) => {
+  // Use react-router navigate to go to the show detail page
+  // Pass genres in state for potential use on the detail page
+    navigate(`/show/${show.id}`, { state: { genres: show.genres } });
+  };
+
+  /**
+   * Check if a show has any favorited episodes
+   * @param {string|number} showId
+   * @returns {boolean} True if user has favorited any episode from this show
+   */
+  const hasFavorites = (showId) => {
+    return favorites.some((fav) => fav.showId === showId);
+  };
+
+  // If no recommended shows, render nothing
+  if (recommendedShows.length === 0) return null;
+
+  return (
+    <section className={styles.carouselSection}>
+      <div className={styles.header}>
+        <h2 className={styles.title}>Recommended Shows</h2>
+      </div>
+
+      <div className={styles.carouselContainer}>
+        {/* Left scroll button */}
+        <button
+          onClick={() => scroll("left")}
+          className={`${styles.navBtn} ${styles.navBtnLeft}`}
+          aria-label="Scroll left"
+        >
+          ‹
+        </button>
+
+       {/* Scrollable carousel */}
+        <div ref={scrollRef} className={styles.carousel}>
+          {recommendedShows.map((show) => (
+            <div
+              key={show.id}
+              className={styles.card}
+              onClick={() => handleShowClick(show)}
+            >
+        {/* Favorite indicator if user has any favorites from this show */}
+              {hasFavorites(show.id) && (
+                <div className={styles.favoriteIndicator}>❤️</div>
+              )}
+
+              {/* Show image */}
+              <img
+                src={show.image}
+                alt={show.title}
+                className={styles.cardImg}
+              />
+
+               {/* Show title and genre tags */}
+              <div className={styles.cardContent}>
+                <h3 className={styles.cardTitle}>{show.title}</h3>
+                <GenreTags genres={show.genres} />
+              </div>
+            </div>
+          ))}
+        </div>
+
+       {/* Right scroll button */}
+        <button
+          onClick={() => scroll("right")}
+          className={`${styles.navBtn} ${styles.navBtnRight}`}
+          aria-label="Scroll right"
+        >
+          ›
+        </button>
+      </div>
+    </section>
+  );
+}
