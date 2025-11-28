@@ -134,3 +134,40 @@ export default function Favorites() {
       </main>
     );
   }
+
+  return (
+    <main className={styles.main}>
+    {/* Page header with title and clear button */}
+      <header className={styles.header}>
+        <div>
+          <h1>Favourite Episodes</h1>
+          <p className={styles.subtitle}>
+            Your saved episodes from all shows
+          </p>
+        </div>
+
+        {/* Only show "Clear All" if there are favorites */}
+        {favorites.length > 0 && (
+          <button onClick={clearAllFavorites} className={styles.clearBtn}>
+            Clear All
+          </button>
+        )}
+      </header>
+
+    {/* Sorting and filtering controls */}
+      <div className={styles.controls}>
+        <div className={styles.controlGroup}>
+          <label htmlFor="sort-select">Sort by:</label>
+    {/* Update sort type when user changes the dropdown */}
+          <select
+            id="sort-select"
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value)}
+            className={styles.select}
+          >
+            <option value="newest">Newest Added</option>
+            <option value="oldest">Oldest Added</option>
+            <option value="title-asc">Title A → Z</option>
+            <option value="title-desc">Title Z → A</option>
+          </select>
+        </div>
