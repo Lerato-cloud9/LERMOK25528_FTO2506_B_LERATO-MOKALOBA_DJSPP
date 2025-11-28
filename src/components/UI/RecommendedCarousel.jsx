@@ -1,4 +1,4 @@
-import { useRef, useContext } from "react";
+import { useRef, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./RecommendedCarousel.module.css";
 import GenreTags from "../UI/GenreTags";
@@ -15,10 +15,10 @@ import { useFavorites } from "../../context/FavoritesContext";
  * - Favorite indicator
  */
 export default function RecommendedCarousel() {
-  const { allPodcasts } = useContext(PodcastContext);  // Get all podcasts from context
-  const { favorites } = useFavorites();                // Get user favorites from context
-  const scrollRef = useRef(null);                      // Reference to the scrollable container
-  const navigate = useNavigate();                      // Navigate to podcast detail page
+  const { allPodcasts } = useContext(PodcastContext); // Get all podcasts from context
+  const { favorites } = useFavorites();               // Get user favorites from context
+  const scrollRef = useRef(null);                     // Reference to the scrollable container
+  const navigate = useNavigate();                     // Navigate to podcast detail page
 
   // Get random selection of podcasts for recommendations (or use first 12)
   const recommendedShows = allPodcasts.slice(0, 12);
@@ -37,9 +37,8 @@ export default function RecommendedCarousel() {
     }
   };
 
-  
   /**
-   * Navigate to the show detail page when a show card is clicked
+  * Navigate to the show detail page when a show card is clicked
    * @param {Object} show - Show data
    */
   const handleShowClick = (show) => {
@@ -56,6 +55,29 @@ export default function RecommendedCarousel() {
   const hasFavorites = (showId) => {
     return favorites.some((fav) => fav.showId === showId);
   };
+
+  /**
+   * Handle infinite scroll loop
+   */
+  const handleScroll = () => {
+    if (scrollRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+
+      // If scrolled to end, jump back to start
+      if (scrollLeft + clientWidth >= scrollWidth - 10) {
+        scrollRef.current.scrollLeft = 0;
+      }
+    }
+  };
+
+  // Add scroll event listener for infinite loop
+  useEffect(() => {
+    const carousel = scrollRef.current;
+    if (carousel) {
+      carousel.addEventListener("scroll", handleScroll);
+      return () => carousel.removeEventListener("scroll", handleScroll);
+    }
+  }, []);
 
   // If no recommended shows, render nothing
   if (recommendedShows.length === 0) return null;
@@ -76,7 +98,7 @@ export default function RecommendedCarousel() {
           ‹
         </button>
 
-       {/* Scrollable carousel */}
+      {/* Scrollable carousel */}
         <div ref={scrollRef} className={styles.carousel}>
           {recommendedShows.map((show) => (
             <div
@@ -84,7 +106,8 @@ export default function RecommendedCarousel() {
               className={styles.card}
               onClick={() => handleShowClick(show)}
             >
-        {/* Favorite indicator if user has any favorites from this show */}
+
+            {/* Favorite indicator if user has any favorites from this show */}
               {hasFavorites(show.id) && (
                 <div className={styles.favoriteIndicator}>❤️</div>
               )}
@@ -96,7 +119,7 @@ export default function RecommendedCarousel() {
                 className={styles.cardImg}
               />
 
-               {/* Show title and genre tags */}
+              {/* Show title and genre tags */}
               <div className={styles.cardContent}>
                 <h3 className={styles.cardTitle}>{show.title}</h3>
                 <GenreTags genres={show.genres} />
@@ -105,7 +128,7 @@ export default function RecommendedCarousel() {
           ))}
         </div>
 
-       {/* Right scroll button */}
+      {/* Right scroll button */}
         <button
           onClick={() => scroll("right")}
           className={`${styles.navBtn} ${styles.navBtnRight}`}
