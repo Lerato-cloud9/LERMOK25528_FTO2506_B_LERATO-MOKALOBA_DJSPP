@@ -171,3 +171,45 @@ export default function Favorites() {
             <option value="title-desc">Title Z → A</option>
           </select>
         </div>
+
+        <div className={styles.controlGroup}>
+       {/* Label for the filter dropdown */}
+          <label htmlFor="filter-select">Filter:</label>
+        {/* Dropdown to select which show to filter */}
+          <select
+            id="filter-select"
+            value={filterShow}  // Current selected value
+            onChange={(e) => setFilterShow(e.target.value)} // Update state when user selects a new show
+            className={styles.select}
+          >
+            {/* Default option to show all shows */}
+            <option value="all">All Shows</option>
+            {/* Map through showTitles array and create an option for each show */}
+            {showTitles.map((title) => (
+              <option key={title} value={title}>
+                {title}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
+
+    {/* Container for all favorite episodes */}   
+      <div className={styles.favorites}>
+    {/* Loop through each show in groupedFavorites */}
+        {Object.entries(groupedFavorites).map(([showTitle, episodes]) => (
+          <section key={showTitle} className={styles.showGroup}>
+            <div className={styles.showHeader}>
+              <img
+                src={episodes[0].showImage}
+                alt={showTitle}
+                className={styles.showImage}
+              />
+              {/* Show title and number of favorite episodes */}
+              <h2 className={styles.showTitle}>
+                {showTitle}
+                <span className={styles.episodeCount}>
+                  ({episodes.length} {episodes.length === 1 ? "episode" : "episodes"})
+                </span>
+              </h2>
+            </div>
