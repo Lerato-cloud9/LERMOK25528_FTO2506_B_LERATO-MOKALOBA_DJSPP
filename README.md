@@ -1,104 +1,53 @@
-# 🎧 DJS Portfolio Piece – Podcast App (React)
+🎙️ Podcast App
+A modern podcast browsing and listening application where you can discover shows, save your favorites, and enjoy seamless audio playback across all pages.
 
-## 📋 Overview
+🌐 Live Demo
+View Live App
 
-In this final phase, you will enhance the podcast app you've been building throughout the DJS course. The app already includes a landing page with searchable, sortable, and filterable podcast previews, as well as a show detail page with season toggling.
+📖 About This Project
+I built this podcast app as part of my coding journey and honestly, it was way harder than I expected but also super rewarding! The idea was to make something that actually feels like a real app you'd download from an app store. You can scroll through different podcasts, listen to episodes, save the ones you like, and even switch between light and dark mode depending on your vibe. It's been really cool seeing it all come together.
 
-This project introduces key new features including global audio playback, favouriting episodes, deployment best practices, UI enhancements, and optional listening progress tracking.
+✨ Features I Built
 
-Your goal is to build a polished, production-ready React application that offers an engaging and seamless user experience.
+🎵 Audio Player
+The audio player was probably the most challenging part! It stays at the bottom of the screen no matter which page you're on, so you can keep listening while browsing other shows. I added play/pause controls, a progress bar you can drag to skip around, and it even saves where you left off if you refresh the page. There's also a warning if you try to close the tab while something's playing so you don't lose your spot.
 
-> **Tip:** You are encouraged to explore the React ecosystem to help implement features efficiently.
+❤️ Favorites System
+You can click the heart icon on any episode to save it to your favorites. I used localStorage to make sure your favorites stick around even after you close the browser. The favorites page shows everything organized by show, and you can sort them by title or by when you added them. It also shows the date you favorited each episode which I thought was a nice touch.
 
-## 🎯 Objectives
+🎠 Recommended Shows
+On the home page, there's a carousel at the top with recommended shows you can scroll through. I added left and right arrow buttons to make it easy to browse. When you click on a show, it takes you straight to the detail page. If you've favorited any episodes from a show, it shows a little heart indicator on the card.
 
-- Implement a global audio player with full playback control
-- Add support for favouriting episodes with persistent storage
-- Introduce a recommended shows carousel on the landing page
-- Support theme toggling (light/dark mode)
-- Ensure robust routing and deploy the app with professional polish
-- Optionally track listening progress across episodes and sessions
+🌗 Theme Toggle
+I wanted to make sure the app looks good whether you prefer light or dark mode. The theme toggle is in the header and it switches everything smoothly. Your choice gets saved so next time you visit, it remembers what you picked.
 
-## 🚀 Core Features & User Stories
+🔍 Search and Filters
+You can search for podcasts by name, filter by genre, and sort by different options like title or date updated. I also made the pagination adjust based on your screen size so you see more items on bigger screens.
 
-### 🛠️ Setup and Deployment
+🛠️ Technologies I Used
+React - I used this to build everything because it makes creating interactive UIs so much easier
 
-- Deploy your app to **Vercel** using a **custom domain or URL**
-- Add a **custom favicon** for easy identification in browser tabs
-- Use tools like [metatags.io](https://metatags.io) to set **rich social media preview metadata**
-- Ensure that direct access to dynamic routes (e.g. `/show/1`) works correctly (SPA routing fallback)
+Vite - Way faster than Create React App, made development much smoother
 
-### 🔊 Global Audio Player
+React Router - So people can bookmark specific shows and navigate properly
 
-- Play audio using the provided **placeholder API**
-- Keep the player **fixed at the bottom** of the screen across all pages
-- Ensure **uninterrupted playback** when navigating between pages
-- Provide **play, pause, seek, and progress tracking**
-- Add a **confirmation prompt** on page reloads during playback
+CSS Modules - Helped me keep my styles organized without everything clashing
 
-### ❤️ Favourites
+Context API - Honestly saved my life when dealing with the audio player state across pages
 
-- Allow users to **favourite or unfavourite episodes** via a button/icon
-- Use **localStorage** to persist favourites across sessions
-- Provide **visual feedback** for favourited items (e.g., filled heart)
-- Create a **favourites page** displaying all saved episodes
-- Display **associated show and season** for each favourite
-- Show the **date/time added** to favourites
-- **Group favourites by show title**
-- Add **sorting options**:
-  - A–Z / Z–A by title
-  - Newest / Oldest by date added
+localStorage - For saving favorites and theme choices so they don't disappear when you refresh
 
-### 🎠 Recommended Shows Carousel
+Podcast API - Where all the actual podcast data comes from
 
-- Add a **horizontally scrollable carousel** to the landing page
-- Show each show’s **image, title, and genre tags**
-- Support **looping** and navigation via **swipe or arrows**
-- Clicking a carousel item should navigate to the **show’s detail page**
+🚀 What I Learned
+This project taught me a lot about managing state in React, especially with the audio player. Getting the player to work across different pages without interrupting playback was tricky but really rewarding once I figured it out. I also learned a lot about localStorage and how to structure a bigger React app with contexts and custom hooks.
+Responsive design was another big learning area. Making sure the carousel works on mobile, the audio player doesn't cover important content, and everything scales nicely took some experimentation but I'm happy with how it turned out.
 
-### 🌗 Theme Toggle
+🎯 Future Improvements
+If I had more time, I'd love to add user accounts so your favorites sync across devices. It would also be cool to add a "continue listening" section that shows episodes you started but didn't finish. Maybe even add the ability to create custom playlists or share episodes with friends.
 
-- Include a **toggle** for switching between light and dark mode
-- **Persist theme selection** using `localStorage`
-- Ensure the **entire app UI updates smoothly**
-- Use **appropriate icons** (e.g., sun/moon) to indicate current theme
-- Reflect selected theme across all views and components
+📱 Mobile Responsive
+The app works on phones, tablets, and desktops. I used media queries to make sure everything adapts to different screen sizes. The carousel is swipeable on touch devices, and the audio player controls stack nicely on smaller screens.
 
-## 🌟 Stretch Goal – Listening Progress (Optional)
-
-- Save playback position per episode and **resume playback**
-- Mark episodes as **"finished"** once fully played
-- Display **progress indicators** for episodes in progress
-- Allow users to **reset listening history**
-- Save listening history in local storage
-
-## ✅ Deliverables
-
-- A fully functional and deployed podcast app
-- Source code in **GitHub** with clear commit history
-- Live demo link (**Vercel**)
-- (Optional) Short demo video
-
-## 💡 Tips
-
-- Prioritise **user experience** and **clean component structure**
-- Use **React best practices** (components, hooks, state management)
-- Ensure the app is **responsive** and **mobile-friendly**
-- Test localStorage and audio persistence thoroughly
-- Make use of the **React ecosystem** to accelerate development!
-
----
-
-## 🧑‍⚖️ Panel Review
-
-After submitting your project, you will be required to present your work to a coach or panel of coaches.
-
-During this session, you must:
-
-- **Demonstrate** all the features you have implemented in your application.
-- **Explain** how each feature was built, referring directly to your code (e.g., components, state, hooks, storage).
-- Discuss the **decisions** you made during development (e.g., choice of libraries, structure, naming conventions).
-- Break down the **logic** behind key functionalities (e.g., how audio persistence or favouriting works).
-- Be prepared to answer **questions** from the coaches about your project, code structure, and implementation choices.
-
-This is your opportunity to showcase both your technical and problem-solving skills—treat it like a real-world project revsiew.
+🙏 Acknowledgments
+Thanks to the podcast API for providing all the data, and to everyone who helped me troubleshoot issues along the way. This was a challenging project but I learned so much and I'm really proud of what I built!
