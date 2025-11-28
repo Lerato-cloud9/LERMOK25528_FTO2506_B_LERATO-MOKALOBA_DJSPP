@@ -225,3 +225,4 @@ return (
   {children}
   </AudioPlayerContext.Provider>
 );
+}
