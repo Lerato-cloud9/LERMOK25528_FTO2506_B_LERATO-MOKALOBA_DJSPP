@@ -1,5 +1,7 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom"; // ← add this
+import { useNavigate } from "react-router-dom";
+import { useFavorites } from "../../context/FavoritesContext";
+import { useAudioPlayer } from "../../context/AudioPlayerContext";
 import styles from "./PodcastDetail.module.css";
 import { formatDate } from "../../utils/formatDate";
 import GenreTags from "../UI/GenreTags";
@@ -7,7 +9,39 @@ import GenreTags from "../UI/GenreTags";
 export default function PodcastDetail({ podcast, genres }) {
   const [selectedSeasonIndex, setSelectedSeasonIndex] = useState(0);
   const season = podcast.seasons[selectedSeasonIndex];
-  const navigate = useNavigate(); // ← hook for navigation
+  const navigate = useNavigate();
+
+  // Favorites and Audio Player hooks
+  const { addFavorite, removeFavorite, isFavorite } = useFavorites();
+  const { playEpisode } = useAudioPlayer();
+
+  /**
+   * Handle toggling favorite status for an episode
+   */
+  const handleFavoriteToggle = (episode, episodeIndex) => {
+    const seasonNumber = selectedSeasonIndex + 1;
+    const id = `${podcast.id}-${seasonNumber}-${episode.episode}`;
+
+    if (isFavorite(podcast.id, seasonNumber, episode.episode)) {
+      removeFavorite(id);
+    } else {
+      addFavorite(episode, podcast, seasonNumber);
+    }
+  };
+
+  /**
+   * Handle playing an episode
+   */
+  const handlePlayEpisode = (episode) => {
+    const seasonNumber = selectedSeasonIndex + 1;
+    playEpisode({
+      id: `${podcast.id}-${seasonNumber}-${episode.episode}`,
+      audioFile: episode.file,
+      title: episode.title,
+      showTitle: podcast.title,
+      showImage: podcast.image,
+    });
+  };
 
   return (
     <div className={styles.container}>
@@ -92,6 +126,39 @@ export default function PodcastDetail({ podcast, genres }) {
                   Episode {index + 1}: {ep.title}
                 </p>
                 <p className={styles.episodeDesc}>{ep.description}</p>
+              </div>
+
+              {/* Play and Favorite Buttons */}
+              <div className={styles.episodeActions}>
+                <button
+                  onClick={() => handlePlayEpisode(ep)}
+                  className={styles.playBtn}
+                  aria-label="Play episode"
+                >
+                  ▶️ Play
+                </button>
+
+                <button
+                  onClick={() => handleFavoriteToggle(ep, index)}
+                  className={styles.favoriteBtn}
+                  aria-label={
+                    isFavorite(
+                      podcast.id,
+                      selectedSeasonIndex + 1,
+                      ep.episode
+                    )
+                      ? "Remove from favorites"
+                      : "Add to favorites"
+                  }
+                >
+                  {isFavorite(
+                    podcast.id,
+                    selectedSeasonIndex + 1,
+                    ep.episode
+                  )
+                    ? "❤️"
+                    : "🤍"}
+                </button>
               </div>
             </div>
           ))}
