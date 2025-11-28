@@ -33,3 +33,37 @@ export default function Favorites() {
     const titles = [...new Set(favorites.map((fav) => fav.showTitle))];
     return titles.sort();
   }, [favorites]);
+
+/**
+ * Creates a sorted and filtered list of favorites.
+ * useMemo makes sure this only runs again when
+ * favorites, sortBy, or filterShow changes.
+ */
+  const sortedFavorites = useMemo(() => {
+    // Start with all favorites
+    let filtered = [...favorites];
+
+   // Filter by selected show 
+    if (filterShow !== "all") {
+      filtered = filtered.filter((fav) => fav.showTitle === filterShow);
+    }
+
+    // Sort the filtered list based on the selected option
+    filtered.sort((a, b) => {
+      switch (sortBy) {
+        case "newest":  // Most recently added first
+          return new Date(b.addedAt) - new Date(a.addedAt);
+        case "oldest": // Earliest added first
+          return new Date(a.addedAt) - new Date(b.addedAt);
+        case "title-asc": // A → Z episode titles
+
+          return a.episodeTitle.localeCompare(b.episodeTitle);
+        case "title-desc": // Z → A episode titles
+          return b.episodeTitle.localeCompare(a.episodeTitle);
+        default:
+          return 0;  // No sorting change
+      }
+    });
+
+    return filtered; // Return the final list
+  }, [favorites, sortBy, filterShow]);
