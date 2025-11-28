@@ -67,3 +67,35 @@ export default function Favorites() {
 
     return filtered; // Return the final list
   }, [favorites, sortBy, filterShow]);
+
+/**
+ * Groups favorite episodes by show title.
+ * useMemo makes sure this only recalculates
+ * when the sorted favorites list changes.
+ */
+  const groupedFavorites = useMemo(() => {
+    const groups = {};
+
+// Loop through each favorite and organize them by show name
+    sortedFavorites.forEach((fav) => {
+      if (!groups[fav.showTitle]) {
+        groups[fav.showTitle] = []; // Create a new group if it doesn’t exist
+      }
+      groups[fav.showTitle].push(fav); // Add episode to the correct group
+    });
+    return groups;
+  }, [sortedFavorites]);
+
+  /**
+   * Format date to readable string
+   */
+  const formatDate = (isoString) => {
+    const date = new Date(isoString);
+    return date.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  };
